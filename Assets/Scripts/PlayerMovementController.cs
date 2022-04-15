@@ -1,3 +1,4 @@
+using Assets.Scripts;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,6 +10,12 @@ public class PlayerMovementController : MonoBehaviour
 
     #region Self Variables
 
+    #region Public Variables
+
+    public MovementTypes Types;
+
+    #endregion
+
     #region Serialized Variables
 
 
@@ -18,7 +25,7 @@ public class PlayerMovementController : MonoBehaviour
 
     #region Private Variables
 
-    private Vector2 inputValues;
+    private Vector2 _inputValues;
     #endregion
 
     #region Private Variables
@@ -31,7 +38,28 @@ public class PlayerMovementController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (_isReadyToMove) MovePlayer();
+        if (_isReadyToMove)
+        {
+            switch (Types)
+            {
+                case MovementTypes.Velocity:
+                    {
+                        MovePlayerWithVelocity();
+                        break;
+                    }
+                case MovementTypes.AddForce:
+                    {
+                        MovePlayerWithAddForce();
+                        break;
+                    }
+                case MovementTypes.Transform:
+                    {
+                        MovePlayerWithTransform();
+                        break;
+                    }
+            }
+
+        }
         else StopPlayer();
     }
 
@@ -40,19 +68,30 @@ public class PlayerMovementController : MonoBehaviour
         _isReadyToMove = true;
     }
 
-    public void SetMovementUnAvailable()
+    public void SetMovementUnavailable()
     {
         _isReadyToMove = false;
     }
 
     public void UpdateInputData(Vector2 inputValue)
     {
-        inputValues = inputValue;
+        _inputValues = inputValue;
     }
 
-    private void MovePlayer()
+    private void MovePlayerWithVelocity()
     {
-        rigidbody.velocity = new Vector3(inputValues.x * speed, rigidbody.velocity.y, inputValues.y * speed);
+        rigidbody.velocity = new Vector3(_inputValues.x * speed, rigidbody.velocity.y, _inputValues.y * speed);
+    }
+
+    private void MovePlayerWithAddForce()
+    {
+        rigidbody.AddForce(new Vector3(_inputValues.x * speed, rigidbody.velocity.y, _inputValues.y * speed), ForceMode.Force);
+
+    }
+
+    private void MovePlayerWithTransform()
+    {
+        transform.position += new Vector3(_inputValues.x * speed * Time.deltaTime, 0, _inputValues.y * speed * Time.deltaTime);
     }
 
     private void StopPlayer()

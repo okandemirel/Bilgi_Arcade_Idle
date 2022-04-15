@@ -8,30 +8,48 @@ public class PlayerManager : MonoBehaviour
     #region Serialized Variables
 
     [SerializeField] private PlayerMovementController movementController;
+    [SerializeField] private PlayerPhysicsController physicsController;
 
     #endregion
 
     #region Private Variables
-    private Vector2 inputValue;
 
 
     #endregion
 
     #endregion
-    private void Update()
+
+    private void OnEnable()
     {
-        if (Input.anyKey)
-        {
-            inputValue = InputData;
-            movementController.SetMovementAvailable();
-            movementController.UpdateInputData(inputValue);
-        }
-        else
-        {
-            movementController.SetMovementUnAvailable();
-        }
+        AssignEvents();
     }
 
-    private Vector2 InputData => new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+    private void AssignEvents()
+    {
+        EventManager.Instance.onInputDragged += OnInputDragged;
+        EventManager.Instance.onInputReleased += OnInputReleased;
+    }
+
+    private void UnAssignEvents()
+    {
+        EventManager.Instance.onInputDragged -= OnInputDragged;
+        EventManager.Instance.onInputReleased -= OnInputReleased;
+    }
+
+    private void OnDisable()
+    {
+        UnAssignEvents();
+    }
+
+    private void OnInputDragged(Vector2 inputParams)
+    {
+        movementController.SetMovementAvailable();
+        movementController.UpdateInputData(inputParams);
+    }
+
+    private void OnInputReleased()
+    {
+        movementController.SetMovementUnavailable();
+    }
 
 }
