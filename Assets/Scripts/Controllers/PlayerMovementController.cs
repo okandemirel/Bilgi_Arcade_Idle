@@ -25,7 +25,7 @@ public class PlayerMovementController : MonoBehaviour
 
     #region Private Variables
 
-    private Vector2 _inputValues;
+    private float _inputValues;
     #endregion
 
     #region Private Variables
@@ -40,24 +40,7 @@ public class PlayerMovementController : MonoBehaviour
     {
         if (_isReadyToMove)
         {
-            switch (Types)
-            {
-                case MovementTypes.Velocity:
-                    {
-                        MovePlayerWithVelocity();
-                        break;
-                    }
-                case MovementTypes.AddForce:
-                    {
-                        MovePlayerWithAddForce();
-                        break;
-                    }
-                case MovementTypes.Transform:
-                    {
-                        MovePlayerWithTransform();
-                        break;
-                    }
-            }
+
 
         }
         else StopPlayer();
@@ -73,26 +56,12 @@ public class PlayerMovementController : MonoBehaviour
         _isReadyToMove = false;
     }
 
-    public void UpdateInputData(Vector2 inputValue)
+    public void UpdateInputData(HorizontalnputParams inputValue)
     {
-        _inputValues = inputValue;
+        _inputValues = inputValue.HorizontalInputValue;
     }
 
-    private void MovePlayerWithVelocity()
-    {
-        rigidbody.velocity = new Vector3(_inputValues.x * speed, rigidbody.velocity.y, _inputValues.y * speed);
-    }
 
-    private void MovePlayerWithAddForce()
-    {
-        rigidbody.AddForce(new Vector3(_inputValues.x * speed, rigidbody.velocity.y, _inputValues.y * speed), ForceMode.Force);
-
-    }
-
-    private void MovePlayerWithTransform()
-    {
-        transform.position += new Vector3(_inputValues.x * speed * Time.deltaTime, 0, _inputValues.y * speed * Time.deltaTime);
-    }
 
     private void StopPlayer()
     {

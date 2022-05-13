@@ -41,7 +41,7 @@ public class PlayerManager : MonoBehaviour
         UnAssignEvents();
     }
 
-    private void OnInputDragged(Vector2 inputParams)
+    private void OnInputDragged(HorizontalnputParams inputParams)
     {
         movementController.SetMovementAvailable();
         movementController.UpdateInputData(inputParams);

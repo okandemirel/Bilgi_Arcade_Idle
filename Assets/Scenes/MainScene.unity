@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 374717955}
-  m_IndirectSpecularColor: {r: 0.21932653, g: 0.4525183, b: 0.8034042, a: 1}
+  m_IndirectSpecularColor: {r: 0.24660099, g: 0.5383379, b: 0.91915095, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -438,6 +438,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 304104e0b21a8464da7575305ffca9fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InputData: {fileID: 11400000, guid: f08748167a457514c9ee2c35147a57e3, type: 2}
+  IsAvailableForTouch: 0
+  isFirstTimeTouchTaken: 0
+  joystick: {fileID: 0}
 --- !u!1 &1423028088
 GameObject:
   m_ObjectHideFlags: 0
