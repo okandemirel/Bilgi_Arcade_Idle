@@ -1,3 +1,7 @@
+using Assets.Scripts.Enums;
+using DG.Tweening;
+//using RayFire;
+using System;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
@@ -32,6 +36,8 @@ public class PlayerManager : MonoBehaviour
         EventManager.Instance.onInputReleased += OnInputReleased;
     }
 
+
+
     private void UnAssignEvents()
     {
         EventManager.Instance.onInputTaken -= OnInputTaken;
@@ -62,4 +68,15 @@ public class PlayerManager : MonoBehaviour
         animationController.SetAnimationStateToIdle();
     }
 
+
+
+    public void ChangeTheAnimationState(AnimationStates states)
+    {
+        animationController.ChangeAnimationState(states);
+    }
+
+    //public void CutCuttable(RayfireRigid rigid)
+    //{
+    //    rigid.ApplyDamage(15, new Vector3(rigid.transform.position.x, 0, rigid.transform.position.z), 5);
+    //}
 }

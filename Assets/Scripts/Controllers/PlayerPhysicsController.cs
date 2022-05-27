@@ -1,5 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
+using Assets.Scripts.Enums;
+using DG.Tweening;
+//using RayFire;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class PlayerPhysicsController : MonoBehaviour
@@ -14,6 +16,13 @@ public class PlayerPhysicsController : MonoBehaviour
 
     #endregion
 
+
+    #region Private Variables
+
+    [ShowInInspector] private bool _isInCuttingState;
+
+    #endregion
+
     #endregion
 
 
@@ -22,6 +31,33 @@ public class PlayerPhysicsController : MonoBehaviour
         if (other.CompareTag("Obstacle"))
         {
             other.gameObject.SetActive(false);
+        }
+        if (other.CompareTag("Cuttable"))
+        {
+            manager.ChangeTheAnimationState(AnimationStates.Cut);
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Cuttable"))
+        {
+            //if (!_isInCuttingState)
+            //{
+            //    _isInCuttingState = true;
+            //    DOVirtual.DelayedCall(3, () =>
+            //    {
+            //        manager.CutCuttable(other.transform.GetChild(0).transform.GetComponent<RayfireRigid>());
+            //    }).OnComplete(() => _isInCuttingState = false);
+            //}
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Cuttable"))
+        {
+            manager.ChangeTheAnimationState(AnimationStates.Idle);
         }
     }
 }

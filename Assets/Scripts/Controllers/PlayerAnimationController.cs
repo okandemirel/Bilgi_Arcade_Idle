@@ -1,3 +1,5 @@
+using Assets.Scripts.Enums;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,6 +20,7 @@ public class PlayerAnimationController : MonoBehaviour
 
     private const string Walk = "Walk";
     private const string Idle = "Idle";
+    private const string Cut = "Cut";
 
 
     #endregion
@@ -34,4 +37,23 @@ public class PlayerAnimationController : MonoBehaviour
         animator.SetTrigger(Idle);
     }
 
+    public void ChangeAnimationState(AnimationStates states)
+    {
+        switch (states)
+        {
+            case AnimationStates.Cut:
+                {
+                    animator.SetBool(Cut, true);
+                    break;
+
+                }
+            case AnimationStates.Idle:
+                {
+                    animator.SetTrigger(Idle);
+                    animator.SetBool(Cut, false);
+                    break;
+                }
+
+        }
+    }
 }

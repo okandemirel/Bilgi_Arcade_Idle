@@ -19,18 +19,16 @@ public class CameraManager : MonoBehaviour
     private void Start()
     {
         SubscribeEvents();
-        playerManager = FindObjectOfType<PlayerManager>().transform;
-
     }
 
     private void SubscribeEvents()
     {
-        EventManager.Instance.onPlay += OnAssignCameraTarget;
+        EventManager.Instance.onPlay += OnSetCameraTarget;
     }
 
     private void UnsubscribeEvents()
     {
-        EventManager.Instance.onPlay -= OnAssignCameraTarget;
+        EventManager.Instance.onPlay -= OnSetCameraTarget;
 
     }
 
@@ -41,10 +39,12 @@ public class CameraManager : MonoBehaviour
 
     #endregion
 
-    private void OnAssignCameraTarget()
+    private void OnSetCameraTarget()
     {
+        playerManager = FindObjectOfType<PlayerManager>().transform;
         virtualCamera.Follow = playerManager;
         virtualCamera.LookAt = playerManager;
+
     }
 
 }
