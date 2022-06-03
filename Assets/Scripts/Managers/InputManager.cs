@@ -129,6 +129,7 @@ namespace UnityTemplateProjects.Managers
         private void OnPlay()
         {
             IsAvailableForTouch = true;
+            EventManager.Instance.onUpdateGameState?.Invoke(Assets.Scripts.Enums.GameStates.Movement);
         }
 
         private bool IsPointerOverUIElement()

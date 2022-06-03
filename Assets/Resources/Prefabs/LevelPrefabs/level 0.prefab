@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7673001731916732401}
   m_Layer: 0
-  m_Name: Cuttables
+  m_Name: Collectables
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -64,6 +64,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2421452277523947238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8976430916870881742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69336b57f43a9604889272cd115070f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 0
 --- !u!1001 &2213612046627585834
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -78,6 +91,10 @@ PrefabInstance:
     - target: {fileID: 7073717066178461412, guid: 631467e7f7d4faf44a892b9011a9d9a7, type: 3}
       propertyPath: m_Name
       value: Cuttable
+      objectReference: {fileID: 0}
+    - target: {fileID: 7073717066178461412, guid: 631467e7f7d4faf44a892b9011a9d9a7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8416964153424330727, guid: 631467e7f7d4faf44a892b9011a9d9a7, type: 3}
       propertyPath: m_RootOrder
@@ -123,8 +140,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5804296581027402937, guid: 631467e7f7d4faf44a892b9011a9d9a7, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 631467e7f7d4faf44a892b9011a9d9a7, type: 3}
+--- !u!1 &8976430916870881742 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7073717066178461412, guid: 631467e7f7d4faf44a892b9011a9d9a7, type: 3}
+  m_PrefabInstance: {fileID: 2213612046627585834}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7671675398401196237 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8416964153424330727, guid: 631467e7f7d4faf44a892b9011a9d9a7, type: 3}

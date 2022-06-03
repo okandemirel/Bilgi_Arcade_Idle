@@ -1,4 +1,5 @@
 using Assets.Scripts;
+using Assets.Scripts.Managers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -38,7 +39,7 @@ public class PlayerMovementController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (_isReadyToMove)
+        if (_isReadyToMove && GameManager.Instance.State == Assets.Scripts.Enums.GameStates.Movement)
         {
             MovePlayer();
             RotatePlayer();

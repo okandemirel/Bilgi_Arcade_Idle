@@ -1,3 +1,5 @@
+using Assets.Scripts.Enums;
+using Assets.Scripts.Keys;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -31,6 +33,9 @@ public class EventManager : MonoBehaviour
     public UnityAction onClearActiveLevel = delegate { };
     public UnityAction onNextLevel = delegate { };
     public UnityAction onRestartLevel = delegate { };
-    public UnityAction onSaveGameData = delegate { };
+    public UnityAction<GameSaveDataParams> onSaveGameData = delegate { };
+    public UnityAction<GameStates> onUpdateGameState = delegate { };
+    public UnityAction<CollectableTypes, int> onUpdateCollectableType = delegate { };
+    public UnityAction<CollectableTypes, int> onUpdateUICollectableType = delegate { };
 
 }
