@@ -89,4 +89,12 @@ public class InGameEconomyManager : MonoBehaviour
                 }
         }
     }
+
+    public void GetResources(out int wood, out int stone, out int gold)
+    {
+        wood = _wood;
+        stone = _stone;
+        gold = _gold;
+
+    }
 }

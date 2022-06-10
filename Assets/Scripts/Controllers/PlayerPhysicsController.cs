@@ -53,6 +53,20 @@ public class PlayerPhysicsController : MonoBehaviour
                 }).OnComplete(() => _isInCuttingState = false);
             }
         }
+
+        if (other.CompareTag("Buyable"))
+        {
+            var data = other.GetComponent<BuyableManager>().BuyableData.Data;
+            //EconomyParams inGameEconomyParams = (EconomyParams)(EventManager.Instance.onGetInGameEconomyParams?.Invoke());
+            FindObjectOfType<InGameEconomyManager>().GetResources(out int wood, out int stone, out int gold);
+            if (wood < data.WoodRequirements) return;
+            if (stone < data.StoneRequirements) return;
+            if (gold < data.GoldRequirements) return;
+            GameObject obj = Instantiate(data.PrefabReference, data.SpawnPosition, Quaternion.Euler(data.SpawnRotation), other.transform);
+            EventManager.Instance.onUpdateUICollectableType?.Invoke(CollectableTypes.Wood, (int)(wood - data.WoodRequirements));
+            EventManager.Instance.onUpdateUICollectableType?.Invoke(CollectableTypes.Stone, (int)(stone - data.StoneRequirements));
+            EventManager.Instance.onUpdateUICollectableType?.Invoke(CollectableTypes.Gold, (int)(gold - data.GoldRequirements));
+        }
     }
 
     private void OnTriggerExit(Collider other)

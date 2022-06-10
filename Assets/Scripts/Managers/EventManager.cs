@@ -1,5 +1,6 @@
 using Assets.Scripts.Enums;
 using Assets.Scripts.Keys;
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -37,5 +38,8 @@ public class EventManager : MonoBehaviour
     public UnityAction<GameStates> onUpdateGameState = delegate { };
     public UnityAction<CollectableTypes, int> onUpdateCollectableType = delegate { };
     public UnityAction<CollectableTypes, int> onUpdateUICollectableType = delegate { };
+
+
+    public Func<EconomyParams> onGetInGameEconomyParams;
 
 }
