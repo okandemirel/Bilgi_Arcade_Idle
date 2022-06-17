@@ -6,7 +6,9 @@ using UnityEngine;
 [Serializable]
 public class BuyableData
 {
-    public GameObject PrefabReference;
+    public GameObject SpawnReference;
     public Vector3 SpawnPosition, SpawnRotation;
-    public float WoodRequirements, StoneRequirements, GoldRequirements;
+    public int WoodRequirement, StoneRequirement, GoldRequirement;
+    public bool IsBought;
 }
+

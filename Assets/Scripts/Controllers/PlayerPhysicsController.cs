@@ -56,17 +56,41 @@ public class PlayerPhysicsController : MonoBehaviour
 
         if (other.CompareTag("Buyable"))
         {
-            var data = other.GetComponent<BuyableManager>().BuyableData.Data;
-            //EconomyParams inGameEconomyParams = (EconomyParams)(EventManager.Instance.onGetInGameEconomyParams?.Invoke());
-            FindObjectOfType<InGameEconomyManager>().GetResources(out int wood, out int stone, out int gold);
-            EventManager.Instance.onUpdateCollectableType?.Invoke(CollectableTypes.Wood, (int)(wood - data.WoodRequirements));
-            EventManager.Instance.onUpdateCollectableType?.Invoke(CollectableTypes.Stone, (int)(stone - data.StoneRequirements));
-            EventManager.Instance.onUpdateCollectableType?.Invoke(CollectableTypes.Gold, (int)(gold - data.GoldRequirements));
-            if (wood < data.WoodRequirements) return;
-            if (stone < data.StoneRequirements) return;
-            if (gold < data.GoldRequirements) return;
-            GameObject obj = Instantiate(data.PrefabReference, data.SpawnPosition, Quaternion.Euler(data.SpawnRotation), other.transform);
+            var buyableManager = other.GetComponent<BuyableManager>();
+            var data = other.GetComponent<BuyableManager>().BuyableData;
+            var priceresultWood = data.WoodRequirement - InGameEconomyManager._wood;
+            var priceresultStone = data.StoneRequirement - InGameEconomyManager._stone;
+            var priceresultGold = data.GoldRequirement - InGameEconomyManager._gold;
+            if (priceresultWood <= 0 && priceresultStone <= 0 && priceresultGold <= 0 && !data.IsBought)
+            {
+                Debug.LogWarning(priceresultWood);
+                EventManager.Instance.onUpdateCollectableType?.Invoke(CollectableTypes.Wood, -(InGameEconomyManager._wood + priceresultWood));
+                EventManager.Instance.onUpdateCollectableType?.Invoke(CollectableTypes.Stone, -(InGameEconomyManager._stone + priceresultStone));
+                EventManager.Instance.onUpdateCollectableType?.Invoke(CollectableTypes.Gold, -(InGameEconomyManager._gold + priceresultGold));
+                buyableManager.BuyTheObject();
+            }
+            else { }
 
+
+            if (priceresultWood > 0)
+            {
+                data.WoodRequirement -= InGameEconomyManager._wood;
+                EventManager.Instance.onUpdateCollectableType?.Invoke(CollectableTypes.Wood, -(InGameEconomyManager._wood + priceresultWood));
+            }
+
+            if (priceresultStone > 0)
+            {
+
+                data.StoneRequirement -= InGameEconomyManager._stone;
+                EventManager.Instance.onUpdateCollectableType?.Invoke(CollectableTypes.Stone, -(InGameEconomyManager._stone + priceresultStone));
+            }
+
+            if (priceresultGold > 0)
+            {
+
+                data.GoldRequirement -= InGameEconomyManager._stone;
+                EventManager.Instance.onUpdateCollectableType?.Invoke(CollectableTypes.Gold, -(InGameEconomyManager._gold + priceresultGold));
+            }
         }
     }
 
